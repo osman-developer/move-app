@@ -2,21 +2,15 @@ import React from "react";
 import "./movieContent.css";
 import Button from "../components/Button";
 
-function MovieContent(movie) {
+function MovieContent({ movie, activeId }) {
   return (
-    <div className="content active">
-      <img src={movie?.backdrop_path} alt="Movie Title" className="move-title" />
+    <div
+      className={`content ${movie.movie_id == activeId ? "active" : undefined}`}
+    >
       <h4>
-        <span>Year</span>
-        <span>
-          <i>age</i>
-        </span>
-        <span>length</span>
-        <span>category</span>
+        <span>{movie.original_title}</span>
       </h4>
-      <p>
-        {movie?.overview}
-      </p>
+      <p>{movie?.overview}</p>
       <div className="button">
         <Button
           icon={<ion-icon name="bookmark-outline"></ion-icon>}
