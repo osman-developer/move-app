@@ -1,8 +1,9 @@
 import React from "react";
-import './header.css';
+import "./header.css";
 import NavListItem from "../components/NavListItem";
 import NavListData from "../data/navListData";
 import Search from "../components/Search";
+import Button from "../components/Button";
 
 function Header() {
   return (
@@ -11,11 +12,15 @@ function Header() {
         Cinema
       </a>
       <ul className="nav">
-        {NavListData.map(navItem => {
+        {NavListData.map((navItem) => {
           return <NavListItem key={navItem._id} navItem={navItem} />;
         })}
       </ul>
-      <Search/>
+      <Search />
+      <Button
+        icon={<ion-icon name="log-in-outline"></ion-icon>}
+        name="Sign in"
+      />
     </header>
   );
 }

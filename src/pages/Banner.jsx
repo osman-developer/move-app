@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./banner.css";
+import MovieContent from "../components/MovieContent";
+import MovieTrailer from "../components/MovieTrailer";
+import MovieSwiper from "../components/MovieSwiper";
 
 function Banner() {
   const [movies, setMovies] = useState([]);
 
-  const fetchData = () => {
-    fetch("https://jsonfakery.com/movies/infinite-scroll")
-      .then((res) => res.json())
-      .then((data) => setMovies(data))
-      .catch((err) => {
-        console.log(err);
-      });
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://jsonfakery.com/movies/infinite-scroll"
+      );
+      const result = await response.json();
+      setMovies(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -18,38 +24,28 @@ function Banner() {
   }, []);
 
   return (
-    <div className="banner">
-      <div className="movie">
-        <img src="" alt="Background Image" className="bgImg" />
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-6 col-md-12">
-              <div className="content">
-                <img src="" alt="Movie Title" className="move-title" />
-                <h4>
-                  <span>Year</span>
-                  <span>
-                    <i>age</i>
-                  </span>
-                  <span>length</span>
-                  <span>category</span>
-                </h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repellat cumque repellendus, quo labore nulla dicta dolores
-                  velit aspernatur neque iusto! Provident quam reiciendis quo
-                  cumque. Sapiente debitis beatae velit non est odit repellat
-                  repudiandae delectus eius tempore, iusto quaerat error numquam
-                  nobis. Dolorum sint minus, cum nostrum unde temporibus aut.
-                </p>
-                <div className="button">button</div>
+    movies.length > 0 && (
+      <div className="banner">
+        <div className="movie">
+          <img
+            src={movies[9]?.poster_path}
+            alt="Background Image"
+            className="bgImg active"
+          />
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-6 col-md-12">
+                <MovieContent movie={movies[0]} />
+              </div>
+              <div className="col-lg-6 col-md-12">
+                <MovieTrailer />
               </div>
             </div>
-            <div className="col-lg-6 col-md-12"></div>
           </div>
         </div>
+        {movies && movies.length > 0 && <MovieSwiper slides={movies} />}
       </div>
-    </div>
+    )
   );
 }
 
