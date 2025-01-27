@@ -31,7 +31,7 @@ function MovieSwiper({ slides, slideChanges }) {
       >
         {slides.map((slide, index) => {
           return (
-            <SwiperSlide className="swiper-slide" Key={slide.id}>
+            <SwiperSlide className="swiper-slide" key={slide.id}>
               <img
                 src={slide.poster_path}
                 alt="Preview Image"

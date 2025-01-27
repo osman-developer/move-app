@@ -14,11 +14,21 @@ function Banner() {
         "https://jsonfakery.com/movies/infinite-scroll"
       );
       const result = await response.json();
-      setMovies(result.data);
+      const filteredMovies = removeSomeMovies(result.data);
+      setMovies(filteredMovies);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  //removing two movies from the dataset because not good content
+  function removeSomeMovies(movies) {
+    const idsToRemove = [10490, 83896];
+    const filteredMovies = movies.filter(
+      (movie) => !idsToRemove.includes(movie.movie_id)
+    );
+    return filteredMovies;
+  }
 
   useEffect(() => {
     fetchData();
@@ -37,7 +47,7 @@ function Banner() {
             movies.length > 0 &&
             movies.map((movie) => {
               return (
-                <div className="movie">
+                <div className="movie" key={movie.movie_id}>
                   <img
                     src={movie.poster_path}
                     alt="Background Image"
@@ -51,7 +61,7 @@ function Banner() {
                         <MovieContent movie={movie} activeId={activeId} />
                       </div>
                       <div className="col-lg-6 col-md-12">
-                        <MovieTrailer movie={movie} activeId={activeId}  />
+                        <MovieTrailer movie={movie} activeId={activeId} />
                       </div>
                     </div>
                   </div>
@@ -59,7 +69,7 @@ function Banner() {
               );
             })}
         </div>
-        <div >
+        <div>
           {movies && movies.length > 0 && (
             <MovieSwiper slides={movies} slideChanges={handleSlidesChanges} />
           )}
