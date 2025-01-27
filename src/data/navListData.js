@@ -7,22 +7,17 @@ const navListData = [
   },
   {
     _id: 2,
-    link: '#schedule',
-    name: `schedule`,
+    link: '#book',
+    name: `book`,
     active: false,
   },
   {
-    _id: 3,
-    link: '#trend',
-    name: `trend`,
+    _id: 2,
+    link: '#list',
+    name: `list`,
     active: false,
   },
-  {
-    _id: 4,
-    link: '#blogs',
-    name: `blogs`,
-    active: false,
-  },
+ 
 ];
 
 export default navListData;
