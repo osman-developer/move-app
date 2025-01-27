@@ -4,3 +4,6 @@ First of all, navigate into the project and hit : 'npm install' to install the n
 After installing the required modules start the project using:
 ### `npm start`
 Then navigate to localhost:3000
+
+
+The dataset that is used : https://jsonfakery.com/movies/infinite-scroll
